@@ -2,7 +2,7 @@
     "name": "Camp with us - application that allows you to reserve a place on the campsite",
     "short_name": "Camp with us",
     "start_url": ".",
-    "display": "fullscreen",
+    "display": "standalone",
     "background_color": "#363636",
     "description": "Camp with us - application that allows you to reserve a place on the campsite",
     "lang": "pl-PL",
