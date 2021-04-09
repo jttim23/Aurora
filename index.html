@@ -329,6 +329,27 @@
             </div>
         </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-firestore.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBydgWBel8biftIe7cQx6Lq1RUJH_aIgH8",
+    authDomain: "aurora-9063e.firebaseapp.com",
+    projectId: "aurora-9063e",
+    storageBucket: "aurora-9063e.appspot.com",
+    messagingSenderId: "9707045068",
+    appId: "1:9707045068:web:c53069ff0abaa33003c269",
+    measurementId: "G-QRB5VJ1822"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  const db = firebase.firestore()
+</script>
+
+<script src="db.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
