@@ -1,0 +1,42 @@
+{
+    "name": "Camp with us - application that allows you to reserve a place on the campsite",
+    "short_name": "Camp with us",
+    "start_url": ".",
+    "display": "fullscreen",
+    "background_color": "#363636",
+    "description": "Camp with us - application that allows you to reserve a place on the campsite",
+    "lang": "pl-PL",
+    "theme_color": "#363636",
+    "icons": [
+      {
+       "src": "./src/ico/android-icon-36x36.png",
+       "sizes": "36x36",
+       "type": "image/png"
+      },
+      {
+       "src": "./src/ico/android-icon-48x48.png",
+       "sizes": "48x48",
+       "type": "image/png"
+      },
+      {
+       "src": "./src/ico/android-icon-72x72.png",
+       "sizes": "72x72",
+       "type": "image/png"
+      },
+      {
+       "src": "./src/ico/android-icon-96x96.png",
+       "sizes": "96x96",
+       "type": "image/png"
+      },
+      {
+       "src": "./src/ico/android-icon-144x144.png",
+       "sizes": "144x144",
+       "type": "image/png"
+      },
+      {
+       "src": "./src/ico/android-icon-192x192.png",
+       "sizes": "192x192",
+       "type": "image/png"
+      }
+     ]
+  }
