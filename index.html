@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Questrial" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <link rel="stylesheet" href="./css/app.css" >
     <title>Camp with us - book your camp's place!</title>
 
@@ -55,6 +57,13 @@
                 <li class="nav-item">
                     <a href="#" class="nav-link" data-toggle="modal" data-target="#bookingModal">Rezerwuj</a>
                 </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-toggle="modal" id ="login-btn" data-target="#logModal">Zaloguj się</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-toggle="modal" id="logout-btn">Wyloguj się</a>
+                </li>
+
             </ol>
         </div>
     </nav>
@@ -64,7 +73,7 @@
         <div id="header" class="container text-white text-center">
             <h3 class="display-5 mb-0">WSPOŁCZESNY CAMPING</h3>
             <h1 class="display-1">Przygoda jakiej nie zaznałeś</h1>
-            <p class="lead d-none d-md-block">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, hic?</p>
+            <p class="lead d-none d-md-block">“Jeśli nie możesz robić rzeczy wielkich, rób małe rzeczy w wielki sposób.”</p>
             <button id="book" class="btn btn-lg btn-primary px-5" data-toggle="modal" data-target="#bookingModal">REZERWUJ TERAZ</button>
         </div>
     </section>
@@ -76,17 +85,17 @@
                 <div class="col-md-4 p3">
                         <img src="images/tent.png" alt="" class="img-fluid d-none d-sm-inline">
                         <h3>Udogodnienia Których Pragniesz</h3>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eum iusto quisquam. Veritatis, qui magni illo aliquid perspiciatis commodi reprehenderit?</p>
+                        <p class="lead">Namioty, leżaki i grille. Wszystko przygotowane i gotowe do użytku. Dbamy o stan naszego inwentarzu oraz dokładamy wszelkich starań, aby w dobie pandemii było wszystko zgodnie z reżimem sanitarnym. </p>
                 </div>
                 <div class="col-md-4 p3">
                         <img src="images/campfire.png" alt="" class="img-fluid d-none d-sm-inline">
                         <h3>Jedzenie Którego Pożądasz</h3>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eum iusto quisquam. Veritatis, qui magni illo aliquid perspiciatis commodi reprehenderit?</p>
+                        <p class="lead">Produkty zawsze swieże oraz gotowe do zakupu w każdym momencie campingowania.</p>
                 </div>
                 <div class="col-md-4 p3">
                         <img src="images/nature.png" alt="" class="img-fluid d-none d-sm-inline">
                         <h3>Przygoda Której Nie Zapomnisz</h3>
-                        <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde eum iusto quisquam. Veritatis, qui magni illo aliquid perspiciatis commodi reprehenderit?</p>
+                        <p class="lead">Szeroka gama miejsc dostosowanych do preferencji klienta zapewnia niezapomniane momenty oraz chwile relaksu dla każdego.</p>
                 </div>
             </div>
         </div>
@@ -94,15 +103,15 @@
     </section>
     <section id="expl" > 
         <div class="container  text-center mt-2 p-3">
-            <h2>STWORZYLIŚMY CAMPINGOWE DOŚWAIDCZENIE COŚ TAM COŚ TAM</h2>
+            <h2>PRZYGOTOWALISMY CAMPINGOWE DOŚWIADCZENIA DLA KAŻDEGO</h2>
             <div class="row m-2 ">
                     <div class=" col-md-6 p-3 ">
                             <div class="card">
                             <img src="images/winter.png" alt="" class="img-fluid">
                             <div class="card-body">
                             <h2 class="card-title text-primary">DOŚWIADCZAJ</h2>
-                                <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis, magni!</p>
-                                <a href="" class="btn btn-outline-primary btn-lg">Idź gdzieś</a>
+                                <p class="card-text"> Najpiękniejsze i najciekawsze miejsca w Polsce podzieliliśmy tematycznie, byście mogli wybrać sobie to, co Was interesuje najbardziej.</p>
+                                <a href="" class="btn btn-outline-primary btn-lg">Rezerwuj</a>
                             </div>    
                             </div>
                         </div>
@@ -111,9 +120,9 @@
                         <img src="images/dogs.png" alt="" class="img-fluid">
                         <div class="card-body">
                         <h2 class="card-title text-primary">ODKRYWAJ</h2>
-                            <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Veritatis, magni!</p>
+                            <p class="card-text">Wiele miejsc nadal czeka na to, aby zostały odkryte przez Ciebie. Zapewnimy Ci bezpieczeństwo i niezapomniane momenty. Nie czekaj i już dziś rozpocznij z nami przygode.</p>
                            
-                            <a href="" class="btn btn-outline-primary btn-lg ">Idź gdzieś</a>
+                            <a href="" class="btn btn-outline-primary btn-lg ">Rezerwuj</a>
                         </div>    
                         </div>
                     </div>
@@ -127,21 +136,21 @@
                     <div class="col-md-4 text-center my-2">
                             <i class="fas fa-quote-left fa-2x text-primary"></i>
                             <blockquote class="blockqoute">
-                                <p class="mb-0">Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.</p>
+                                <p class="mb-0">Bardzo miła i skłonna do pomocy obsługa. Nie miałem z niczym problemu. Juz po 10 minutach mogłem cieszyć sie super widokami i relaksować na łonie natury.</p>
                                 <footer class="blockquote-footer">Tom Ctrurt</footer>
                             </blockquote>
                      </div>  
              <div class="col-md-4 text-center my-2">
                     <i class="fas fa-quote-left fa-2x text-primary"></i>
                     <blockquote class="blockqoute">
-                        <p class="mb-0">Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.</p>
+                        <p class="mb-0">I really recommend this website. I didn't expect that so simple thing which is camping can be so satisfying and relaxing in the same time.</p>
                         <footer class="blockquote-footer">Amrk Twain</footer>
                     </blockquote>
              </div>  
              <div class="col-md-4 text-center my-2">
                     <i class="fas fa-quote-left fa-2x text-primary"></i>
                     <blockquote class="blockqoute">
-                        <p class="mb-0">Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur.</p>
+                        <p class="mb-0">Super przygoda, polecam każdemu kto jeszcze nie próbował. Miła i klimatyczna atmosfera.</p>
                         <footer class="blockquote-footer">Willy Bob</footer>
                     </blockquote>
              </div>  
@@ -182,7 +191,7 @@
                 </div>
                 <div class="col-md-4">
                     <h3>CAMPING STWORZONY DLA WYGODY</h3>
-                    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus laboriosam voluptatem, recusandae perspiciatis dolor nihil nam, nobis pariatur consectetur ullam consequatur mollitia, rerum libero similique minima iusto saepe nostrum asperiores!</p>
+                    <p class="lead">Klimatyczne, niezapomniane miejsca w których bez problemu można się zrelaksować? Trzaskające, ciepłe ognisko, gorąca kawa herbata, rozgrzewająca w zimne wieczory? To wszystko jesteśmy Wam w stanie zagwarantować.<p>
                     <a href="">Sam zobacz<i class="fas fa-arrow-right ml-1"></i></a>
                     
                 </div>
@@ -308,8 +317,95 @@
             </div>
         </div>
     </div>
- <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-firestore.js"></script>
+    //LOGOWANIE
+    <div class="modal" tabindex="-1" role="dialog" id="logModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Logowanie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close" >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="booking-form">
+                        <form id="login-form">
+                                <div class="form-group">
+                                    <span class="form-label">Email</span>
+                                    <input class="form-control" type="email" id="login-email" placeholder="Podaj adres e-mail">
+                                </div>
+                                <div class="form-group">
+                                    <span class="form-label">Hasło</span>
+                                    <input class="form-control" type="password" id="login-password" placeholder="Podaj hasło">
+                                </div>
+
+                            <div class="form-btn">
+                                <button class="submit-btn">Zajoguj się</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <i class="bi bi-google"></i>
+                <i class="bi-github" role="img" aria-label="GitHub"></i>
+				<div class="row">
+					<div class="col-6 col-sm-6">
+						<img src="images/google.png" alt="" class="img-fluid" style="float:right;width:30%;" id="google-btn">
+					</div>
+					<div class="col-6 col-sm-6">
+						<img src="images/fb.png" alt="" class="img-fluid" style="width:30%" id="fb-btn">
+					</div>
+				</div><br>
+                <div class="modal-footer">
+                    Nie masz konta?
+                    <div class="form-btn">
+                        <button class="btn-info" data-toggle="modal" data-target="#signupModal">Zarejestruj się</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    //REJESTRACJA
+    <div class="modal" tabindex="-1" role="dialog" id="signupModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Rejestracja</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="close" >
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="booking-form">
+                        <form id="signup-form">
+                          <!-- <div class="form-group">
+                                <span class="form-label">Imię</span>
+                                <input class="form-control" type="text" id="singup-name"  placeholder="Podaj imię">
+                            </div>
+                            <div class="form-group">
+                                <span class="form-label">Nazwisko</span>
+                                <input class="form-control" type="text"  id="singup-lastname" placeholder="Podaj nazwisko">
+                            </div> -->
+                            <div class="form-group">
+                                <span class="form-label">Email</span>
+                                <input class="form-control" type="email" id="singup-email" placeholder="Podaj adres e-mail">
+                            </div>
+                            <div class="form-group">
+                                <span class="form-label">Hasło</span>
+                                <input class="form-control" type="password" id="singup-password"  placeholder="Podaj hasło">
+                            </div>
+
+                            <div class="form-btn">
+                                <button class="submit-btn" class="close">Zarejestruj się</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-firestore.js"></script>
 
 <script>
  
@@ -327,8 +423,11 @@
 
   const db = firebase.firestore()
 
-
+</script>
+<script src="js/auth.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/app.js"></script> 
+    <script src="js/db.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script></script> <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
