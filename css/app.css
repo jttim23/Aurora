@@ -291,7 +291,7 @@ body {
       
       #body-index{
         background: url("../images/main.jpeg") bottom center/cover no-repeat;
-        min-height: 100%;
+        min-height: 100vh;
         position: relative;
       }
       #showcase {
