@@ -1,3 +1,4 @@
+
 auth.onAuthStateChanged(user => {
     const logout = document.getElementById('logout-btn');
     const login = document.getElementById('login-btn');
@@ -35,6 +36,7 @@ signupForm.addEventListener('submit', (e) => {
         message.innerText = e.message;
         message.style.textAlign = "center";
         modal.appendChild(message);
+        navigator.vibrate([300, 100, 300]);
         console.log(e);
     });
 });
@@ -60,6 +62,7 @@ loginForm.addEventListener('submit', (e) => {
         message.innerText = e.message;
         message.style.textAlign = "center";
         modal.appendChild(message);
+        navigator.vibrate([300, 100, 300]);
         console.log(e);
     });
 });
@@ -80,6 +83,7 @@ signupGoogle.addEventListener('click', (e) => {
         message.innerText = e.message;
         message.style.textAlign = "center";
         modal.appendChild(message);
+        navigator.vibrate([300, 100, 300]);
         console.log(e);
     });
 })
@@ -100,6 +104,9 @@ signupFacebook.addEventListener('click', (e) => {
         message.innerText = e.message;
         message.style.textAlign = "center";
         modal.appendChild(message);
+        navigator.vibrate([300, 100, 300]);
         console.log(e);
     });
 })
+
+
