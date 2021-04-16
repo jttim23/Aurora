@@ -1,14 +1,15 @@
 auth.onAuthStateChanged(user => {
-    const logout = document.querySelector('#logout-btn');
-    const login = document.querySelector('#login-btn');
+    const logout = document.getElementById('logout-btn');
+    const login = document.getElementById('login-btn');
     if (user){
         console.log("user logged in: ", user.email);
-        login.style.display = 'none';
-        logout.style.display = 'block';
+      //  login.style.display = 'none';
+       // logout.style.display = 'block';
     }else{
         console.log("user logged out");
-        logout.style.display = 'none';
-        login.style.display = 'block';
+     //   logout.style.display = 'none';
+      //  login.style.display = 'block';
+
     }
 })
 
@@ -25,22 +26,22 @@ signupForm.addEventListener('submit', (e) => {
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
         const modal = document.querySelector('#signupModal');
        // M.Modal.getInstance(modal).close();
+        window.location.href="./main.html";
         signupForm.reset();
+    }).catch((e) => {
+        const modal = document.querySelector('#error-signup');
+        const message = document.createElement("div");
+        modal.innerText = " ";
+        message.innerText = e.message;
+        message.style.textAlign = "center";
+        modal.appendChild(message);
+        console.log(e);
     });
 });
 
-//logout
-
-const logout = document.querySelector('#logout-btn');
-logout.addEventListener('click', (e) => {
-    e.preventDefault();
-    auth.signOut();
-});
-
-
 
 //login
-const loginForm = document.querySelector('#login-form');
+const loginForm = document.getElementById('login-form');
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -49,8 +50,17 @@ loginForm.addEventListener('submit', (e) => {
 
     auth.signInWithEmailAndPassword(email, password).then(cred => {
         const modal = document.querySelector('#logModal');
-        //M.Modal.getInstance(modal).close;
+       // M.Modal.getInstance(modal).close;
+        window.location.href="./main.html";
         loginForm.reset();
+    }).catch((e) => {
+        const modal = document.querySelector('#error-message');
+        const message = document.createElement("div");
+        modal.innerText = " ";
+        message.innerText = e.message;
+        message.style.textAlign = "center";
+        modal.appendChild(message);
+        console.log(e);
     });
 });
 
@@ -62,7 +72,16 @@ signupGoogle.addEventListener('click', (e) => {
 
     auth.signInWithPopup(provider).then(cred => {
         console.log(cred);
-    })
+        window.location.href="./main.html";
+    }).catch((e) => {
+        const modal = document.querySelector('#error-message');
+        const message = document.createElement("div");
+        modal.innerText = " ";
+        message.innerText = e.message;
+        message.style.textAlign = "center";
+        modal.appendChild(message);
+        console.log(e);
+    });
 })
 
 //fb
@@ -73,5 +92,14 @@ signupFacebook.addEventListener('click', (e) => {
 
     auth.signInWithPopup(provider).then(cred => {
         console.log(cred);
-    })
+        window.location.href="./main.html";
+    }).catch((e) => {
+        const modal = document.querySelector('#error-message');
+        const message = document.createElement("div");
+        modal.innerText = " ";
+        message.innerText = e.message;
+        message.style.textAlign = "center";
+        modal.appendChild(message);
+        console.log(e);
+    });
 })

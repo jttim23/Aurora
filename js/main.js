@@ -13,3 +13,26 @@ if ("serviceWorker" in navigator) {
     );
   });
 }
+auth.onAuthStateChanged(user => {
+  const logout = document.getElementById('logout-btn');
+  const login = document.getElementById('login-btn');
+  if (user){
+      console.log("user logged in: ", user.email);
+      //  login.style.display = 'none';
+      // logout.style.display = 'block';
+  }else{
+      console.log("user logged out");
+      //   logout.style.display = 'none';
+      //  login.style.display = 'block';
+
+  }
+});
+
+//logout
+const logout = document.getElementById('logout-btn');
+logout.addEventListener('click', (e) => {
+  e.preventDefault();
+  auth.signOut().then(() => {
+      window.location.href="./index.html";
+  })
+});
