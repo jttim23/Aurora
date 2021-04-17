@@ -30,7 +30,14 @@ signupForm.addEventListener('submit', (e) => {
         window.location.href="./main.html";
         signupForm.reset();
     }).catch((e) => {
-        displayErrors(e);
+        const modal = document.querySelector('#error-signup');
+        const message = document.createElement("div");
+        modal.innerText = " ";
+        message.innerText = e.message;
+        message.style.textAlign = "center";
+        modal.appendChild(message);
+        navigator.vibrate([300, 100, 300]);
+        console.log(e);
     });
 });
 
