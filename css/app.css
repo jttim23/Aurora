@@ -502,6 +502,31 @@ body {
   width: 100%;
 }
 
+#launchFullscreen {
+  background: #fff;
+  border: 0;
+  border-radius: 20px;
+  max-width: 100px;
+  max-height: 100px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 10px;
+}
+
+#launchFullscreen img {
+  max-width: 100%;
+}
+
+.carousel-item:hover img {
+  transition: 0.2s all ease;
+  cursor: cell;
+}
+
+.carousel-item:hover img {
+  transform: scale(1.5);
+}
+
 @media only screen and (max-width: 767px) {
   .booking-form [class*="col-"] + [class*="col-"] .form-group .form-control {
     border-left: 1px solid #dddee9;
