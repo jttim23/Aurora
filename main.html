@@ -33,6 +33,9 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="./src/ico/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 </head>
 
 <body>
@@ -138,7 +141,11 @@
         </div>
     </section>
     <section id="tents">
-        <div class="container text-center" id="tentsContainer">  </div>
+        <div class="container text-center">
+            <div id="tentsContainer" class="row">
+                <!-- generated code here -->
+            </div>
+        </div>
     </section>
     <section id="quotes">
         <div class="container text-center">
@@ -274,6 +281,10 @@
                                     <div class="form-group">
                                         <span class="form-label">Check In</span>
                                         <input class="form-control" type="date" id="checkinDate" required>
+                                        <!-- <input class="form-control" type="text" name="checkinDate" id="checkinDate" required> -->
+                                    </div>
+                                    <div class="wrapper">
+                                        <input type="text" name="date" id="date">  
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
@@ -308,14 +319,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-firestore.js"></script>
     <script src="js/initializeDB.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    </script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>

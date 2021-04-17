@@ -258,6 +258,10 @@ body {
   background: #e9e7e1;
 }
 
+.card--details {
+  padding: 30px;
+}
+
 .navbar {
   font-weight: 100;
   position: absolute;
