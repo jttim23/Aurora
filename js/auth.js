@@ -1,20 +1,4 @@
-
-/*auth.onAuthStateChanged(user => {
-    const logout = document.getElementById('logout-btn');
-    const login = document.getElementById('login-btn');
-    if (user){
-        console.log("user logged in: ", user.email);
-      //  login.style.display = 'none';
-       // logout.style.display = 'block';
-    }else{
-        console.log("user logged out");
-     //   logout.style.display = 'none';
-      //  login.style.display = 'block';
-
-    }
-}) */
-
-const signupForm = document.querySelector('#signup-form');
+const signupForm = document.getElementById('signup-form');
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -25,19 +9,13 @@ signupForm.addEventListener('submit', (e) => {
     console.log(email, password);
 
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        const modal = document.querySelector('#signupModal');
+        const modal = document.getElementById('signupModal');
        // M.Modal.getInstance(modal).close();
         window.location.href="./main.html";
         signupForm.reset();
     }).catch((e) => {
-        const modal = document.querySelector('#error-signup');
-        const message = document.createElement("div");
-        modal.innerText = " ";
-        message.innerText = e.message;
-        message.style.textAlign = "center";
-        modal.appendChild(message);
-        navigator.vibrate([300, 100, 300]);
-        console.log(e);
+        displayErrors(e, 'error-signup');
+
     });
 });
 
@@ -51,12 +29,12 @@ loginForm.addEventListener('submit', (e) => {
     const password = loginForm['login-password'].value;
 
     auth.signInWithEmailAndPassword(email, password).then(cred => {
-        const modal = document.querySelector('#logModal');
+        const modal = document.getElementById('logModal');
        // M.Modal.getInstance(modal).close;
         window.location.href="./main.html";
         loginForm.reset();
     }).catch((e) => {
-        displayErrors(e);
+        displayErrors(e, 'error-message');
     });
 });
 
@@ -70,7 +48,7 @@ signupGoogle.addEventListener('click', (e) => {
         console.log(cred);
         window.location.href="./main.html";
     }).catch((e) => {
-        displayErrors(e);
+        displayErrors(e, 'error-message');
     });
 })
 
@@ -84,16 +62,17 @@ signupFacebook.addEventListener('click', (e) => {
         console.log(cred);
         window.location.href="./main.html";
     }).catch((e) => {
-        displayErrors(e);
+        displayErrors(e, 'error-message');
     });
 })
 
-function displayErrors(error){
-    const modal = document.querySelector('#error-message');
+function displayErrors(error, div){
+    const modal = document.getElementById(div);
     const message = document.createElement("div");
     modal.innerText = " ";
     message.innerText = error.message;
     message.style.textAlign = "center";
+    message.style.marginTop = "5%";
     modal.appendChild(message);
     navigator.vibrate([300, 100, 300]);
     console.log(error);
