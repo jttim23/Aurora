@@ -1,15 +1,10 @@
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", function () {
-    navigator.serviceWorker.register("./js/sw.js").then(
-      function (registration) {
-        console.log(
-          "ServiceWorker registration successful with scope: ",
-          registration.scope
-        );
-      },
-      function (err) {
-        console.log("ServiceWorker registration failed: ", err);
-      }
-    );
+//logout
+const logout = document.getElementById("logout-btn");
+if (document.body.contains(logout)) {
+  logout.addEventListener("click", (e) => {
+    e.preventDefault();
+    auth.signOut().then(() => {
+      window.location.href = "./index.html";
+    });
   });
 }
