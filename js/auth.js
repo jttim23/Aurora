@@ -1,5 +1,5 @@
 
-auth.onAuthStateChanged(user => {
+/*auth.onAuthStateChanged(user => {
     const logout = document.getElementById('logout-btn');
     const login = document.getElementById('login-btn');
     if (user){
@@ -12,7 +12,7 @@ auth.onAuthStateChanged(user => {
       //  login.style.display = 'block';
 
     }
-})
+}) */
 
 const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
@@ -30,14 +30,7 @@ signupForm.addEventListener('submit', (e) => {
         window.location.href="./main.html";
         signupForm.reset();
     }).catch((e) => {
-        const modal = document.querySelector('#error-signup');
-        const message = document.createElement("div");
-        modal.innerText = " ";
-        message.innerText = e.message;
-        message.style.textAlign = "center";
-        modal.appendChild(message);
-        navigator.vibrate([300, 100, 300]);
-        console.log(e);
+        displayErrors(e);
     });
 });
 
@@ -56,14 +49,7 @@ loginForm.addEventListener('submit', (e) => {
         window.location.href="./main.html";
         loginForm.reset();
     }).catch((e) => {
-        const modal = document.querySelector('#error-message');
-        const message = document.createElement("div");
-        modal.innerText = " ";
-        message.innerText = e.message;
-        message.style.textAlign = "center";
-        modal.appendChild(message);
-        navigator.vibrate([300, 100, 300]);
-        console.log(e);
+        displayErrors(e);
     });
 });
 
@@ -77,14 +63,7 @@ signupGoogle.addEventListener('click', (e) => {
         console.log(cred);
         window.location.href="./main.html";
     }).catch((e) => {
-        const modal = document.querySelector('#error-message');
-        const message = document.createElement("div");
-        modal.innerText = " ";
-        message.innerText = e.message;
-        message.style.textAlign = "center";
-        modal.appendChild(message);
-        navigator.vibrate([300, 100, 300]);
-        console.log(e);
+        displayErrors(e);
     });
 })
 
@@ -98,15 +77,18 @@ signupFacebook.addEventListener('click', (e) => {
         console.log(cred);
         window.location.href="./main.html";
     }).catch((e) => {
-        const modal = document.querySelector('#error-message');
-        const message = document.createElement("div");
-        modal.innerText = " ";
-        message.innerText = e.message;
-        message.style.textAlign = "center";
-        modal.appendChild(message);
-        navigator.vibrate([300, 100, 300]);
-        console.log(e);
+        displayErrors(e);
     });
 })
 
+function displayErrors(error){
+    const modal = document.querySelector('#error-message');
+    const message = document.createElement("div");
+    modal.innerText = " ";
+    message.innerText = error.message;
+    message.style.textAlign = "center";
+    modal.appendChild(message);
+    navigator.vibrate([300, 100, 300]);
+    console.log(error);
+}
 
