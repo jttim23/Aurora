@@ -79,7 +79,7 @@
             <h1 class="display-1">Przygoda jakiej nie zaznałeś</h1>
             <p class="lead d-none d-md-block">“Jeśli nie możesz robić rzeczy wielkich, rób małe rzeczy w wielki sposób.”
             </p>
-            <a href="#tents" id="book" class="btn btn-lg btn-primary px-5">REZERWUJ TERAZ</a>
+            <a href="#tents" id="book" class="btn btn-lg btn-primary px-5" >REZERWUJ TERAZ</a>
         </div>
     </section>
     <section id="icons">
@@ -279,18 +279,18 @@
                             <div class="row no-margin">
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <span class="form-label">Check In</span>
-                                        <input class="form-control" type="date" id="checkinDate" required>
+                                        <span class="form-label">Przyjazd</span>
+                                        <input class="form-control" type="text" id="checkinDate" required>
                                         <!-- <input class="form-control" type="text" name="checkinDate" id="checkinDate" required> -->
                                     </div>
-                                    <div class="wrapper">
+                                    <!--<div class="wrapper">
                                         <input type="text" name="date" id="date">  
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
-                                        <span class="form-label">Check Out</span>
-                                        <input class="form-control" type="date" id="checkoutDate" required>
+                                        <span class="form-label">Wyjazd</span>
+                                        <input class="form-control" type="text" id="checkoutDate" required>
                                     </div>
                                 </div>
                             </div>
@@ -298,18 +298,18 @@
                                 <input type="hidden" name="hiddenTentID" id="hiddenTentID" value="" />
                             </div>
                             <div class="form-group">
-                                <span class="form-label">Phone</span>
+                                <span class="form-label">Numer telefonu</span>
                                 <input class="form-control" type="tel" id="phoneNumber"
-                                    placeholder="Enter your phone number">
+                                    placeholder="Podaj swój numer kontaktowy">
                             </div>
                             <div class="form-btn">
-                                <button class="submit-btn">Book Now</button>
+                                <button class="submit-btn">Zarezerwuj</button>
                             </div>
                         </form>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
                 </div>
             </div>
         </div>
@@ -318,6 +318,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-firestore.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src="js/initializeDB.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
