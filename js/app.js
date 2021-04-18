@@ -141,25 +141,37 @@ function datepickerInit(tentID = null) {
 
 // pobieranie danych z bazy
 const start = async function (selectedTentID = "AjyDpbG3l7vrUs7PVenZ") {
-  const citiesRef = db.collection("bookings");
-  let dateRange = {};
-  alert(selectedTentID + "here!");
-  const snapshot = await citiesRef.where("tentID", "==", selectedTentID).get();
+  let dateRange = [];
+  alert(selectedTentID + " here!");
 
-  if (snapshot.empty) {
-    console.log("No matching documents.", selectedTentID);
+  const addDate = (data) => {
+    data.forEach((doc) => {
+
+      const checkinDate = doc.data().checkinDate;
+      const checkoutDate = doc.data().checkoutDate;
+      console.log(doc.data().checkinDate);
+      dateRange.push(checkinDate, checkoutDate);
+
+      return {
+        start: checkinDate,
+        end: checkoutDate,
+      };
+    });
   }
 
-  // FIXME: forEach zwraca zawsze undefined, wewnątrz nie przypisuje niczego do zmiennych, zmiana tego na pętlę FOR nie działa
-  dateRange.scope = snapshot.forEach((doc) => {
-    console.log(doc.checkinDate);
-    return {
-      start: 2,
-      end: 4,
-    };
-  });
+  db.collection("bookings")
+      .where("tentID", "==", selectedTentID)
+      .get()
+      .then((snapshot) => {
+        addDate(snapshot.docs);
 
-  console.log(ops);
+      });
+  const snapshot = await db.collection("bookings").where("tentID", "==", selectedTentID).get();
+  if (snapshot.empty) {
+    console.log("No matching documents.");
+  }
+
+  console.log("ops");
 
   return [dateRange, "22/01/2018", "23/04/2021", "29/04/2021"];
 };

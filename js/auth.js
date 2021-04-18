@@ -2,15 +2,12 @@ const signupForm = document.getElementById('signup-form');
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-   // const name = signupForm['singup-name'].value;
-   // const lastname = signupForm['singup-lastname'].value;
     const email = signupForm['singup-email'].value;
     const password = signupForm['singup-password'].value;
     console.log(email, password);
 
     auth.createUserWithEmailAndPassword(email, password).then(cred => {
         const modal = document.getElementById('signupModal');
-       // M.Modal.getInstance(modal).close();
         window.location.href="./main.html";
         signupForm.reset();
     }).catch((e) => {
@@ -30,7 +27,6 @@ loginForm.addEventListener('submit', (e) => {
 
     auth.signInWithEmailAndPassword(email, password).then(cred => {
         const modal = document.getElementById('logModal');
-       // M.Modal.getInstance(modal).close;
         window.location.href="./main.html";
         loginForm.reset();
     }).catch((e) => {
