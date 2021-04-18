@@ -78,6 +78,13 @@ function initDateValidation() {
   });
 }
 
+const getDaysArray = function (s, e) {
+  for (var a = [], d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) {
+    a.push(new Date(d));
+  }
+  return a;
+};
+
 // inicjalizacja datepickera TODO
 function datepickerInit(tentID = null) {
   // pobieranie danych z bazy
@@ -87,9 +94,6 @@ function datepickerInit(tentID = null) {
      * dopiero wtedy kontynuujemy kod, bo musimy mieć daty (przypisanie response do dates)
      */
     dates = response;
-
-    alert("Otrzymano odpowiedź! Sprawdź w konsoli");
-    console.log(response);
 
     // data dzisiejsza
     var date = new Date();
@@ -139,39 +143,81 @@ function datepickerInit(tentID = null) {
   });
 }
 
+// konwertuje datę na pożądany format (z DD-MM-RRRR na RRRR-MM-DD)
+function convertDate(date) {
+  let newDate = date.split("/");
+  newDate.push(newDate[0]);
+  newDate[0] = newDate[newDate.length - 2];
+  newDate[newDate.length - 2] = newDate[newDate.length - 1];
+  newDate.pop();
+  return newDate.join("-");
+}
+
+function repairDate(date) {
+  let newDate = date.split("-");
+  newDate.push(newDate[0]);
+  newDate[0] = newDate[newDate.length - 2];
+  newDate[newDate.length - 2] = newDate[newDate.length - 1];
+  newDate.pop();
+  return newDate.join("/");
+}
+
+function restoreDates(arr) {
+  for (var i = 0; i < arr.length; ++i) {
+    arr[i] = repairDate(arr[i]);
+  }
+  return arr;
+}
+
+// tworzy unikalną tablicę (każda data występuje raz)
+function arrayUnique(array) {
+  var a = array.concat();
+  for (var i = 0; i < a.length; ++i) {
+    for (var j = i + 1; j < a.length; ++j) {
+      if (a[i] === a[j]) a.splice(j--, 1);
+    }
+  }
+  return a;
+}
+
 // pobieranie danych z bazy
-const start = async function (selectedTentID = "AjyDpbG3l7vrUs7PVenZ") {
+const start = async function (selectedTentID = null) {
+  if (!selectedTentID) {
+    alert("Błąd w przekazaniu parametru!");
+    return;
+  }
+
   let dateRange = [];
-  alert(selectedTentID + " here!");
 
   const addDate = (data) => {
     data.forEach((doc) => {
-
-      const checkinDate = doc.data().checkinDate;
-      const checkoutDate = doc.data().checkoutDate;
-      console.log(doc.data().checkinDate);
-      dateRange.push(checkinDate, checkoutDate);
-
-      return {
-        start: checkinDate,
-        end: checkoutDate,
-      };
+      var checkinDate = doc.data().checkinDate;
+      var checkoutDate = doc.data().checkoutDate;
+      var daylist = getDaysArray(
+        new Date(convertDate(checkinDate)),
+        new Date(convertDate(checkoutDate))
+      );
+      dateRange.push(daylist.map((v) => v.toISOString().slice(0, 10)));
     });
-  }
+  };
 
   db.collection("bookings")
-      .where("tentID", "==", selectedTentID)
-      .get()
-      .then((snapshot) => {
-        addDate(snapshot.docs);
-
-      });
-  const snapshot = await db.collection("bookings").where("tentID", "==", selectedTentID).get();
+    .where("tentID", "==", selectedTentID)
+    .get()
+    .then((snapshot) => {
+      addDate(snapshot.docs);
+    });
+  const snapshot = await db
+    .collection("bookings")
+    .where("tentID", "==", selectedTentID)
+    .get();
   if (snapshot.empty) {
     console.log("No matching documents.");
   }
 
-  console.log("ops");
-
-  return [dateRange, "22/01/2018", "23/04/2021", "29/04/2021"];
+  newArr = [];
+  for (i = 0; i < dateRange.length; i++) {
+    newArr = arrayUnique(newArr.concat(dateRange[i]));
+  }
+  return restoreDates(newArr);
 };
