@@ -3,6 +3,7 @@ db.collection("tents")
   .get()
   .then((snapshot) => {
     showTents(snapshot.docs);
+    initDateValidation();
   });
 //metoda wysiwtlajaca liste namiotów
 const tentsContainer = document.querySelector("#tentsContainer");
@@ -60,77 +61,81 @@ const addNewReservation = () => {
         (newBookingform.checkoutDate.value = ""),
         (newBookingform.phoneNumber.value = ""),
         alert("Your event has been successfully saved");
-
     })
     .catch((err) => console.log(err));
 };
 
-const checkinDate = document.getElementById('checkinDate');
-const checkoutDate = document.getElementById('checkoutDate');
-checkinDate.addEventListener('click', datepickerInit, false);
-checkoutDate.addEventListener('click', datepickerInit, false);
+function initDateValidation() {
+  const tentsElements = document.querySelectorAll("[data-tent-id]");
+  tentsElements.forEach((tent) => {
+    tent.addEventListener(
+      "click",
+      function () {
+        datepickerInit(tent.dataset.tentId);
+      },
+      false
+    );
+  });
+}
 
 // inicjalizacja datepickera TODO
-function datepickerInit() {
+function datepickerInit(tentID = null) {
   // pobieranie danych z bazy
-  start();
-    var dates = ["20/01/2018", "21/01/2018", "22/01/2018", "23/04/2021"];
+  start(tentID);
+  var dates = ["20/01/2018", "21/01/2018", "22/01/2018", "23/04/2021"];
   // data dzisiejsza
-      var date = new Date();
-      var day = date.getDate();
-      var day1 = date.getDate()+1;
-      var month = date.getMonth()+1;
-      var year = date.getFullYear();
-      if (day<10)
-        day = '0'+day;
-      if(month<10)
-        month = '0'+month;
-    var today = day + '/' + month + '/' + year;
-    var tomorrow = day1 + '/' + month + '/' + year;
+  var date = new Date();
+  var day = date.getDate();
+  var day1 = date.getDate() + 1;
+  var month = date.getMonth() + 1;
+  var year = date.getFullYear();
+  if (day < 10) day = "0" + day;
+  if (month < 10) month = "0" + month;
+  var today = day + "/" + month + "/" + year;
+  var tomorrow = day1 + "/" + month + "/" + year;
 
   function DisableDates(date) {
     var string = jQuery.datepicker.formatDate("dd/mm/yy", date);
     return [dates.indexOf(string) == -1];
   }
 
-  $( function() {
-   var dateFormat = "dd/mm/yy";
-        $( "#checkinDate" )
-            .datepicker({
-              beforeShowDay: DisableDates,
-              firstDay: 1,
-              dateFormat: "dd/mm/yy",
-              minDate: today,
-            })
-            .on( "change", function() {
-              to.datepicker( "option", "minDate", getDate( this ) );
-            }),
-        to = $( "#checkoutDate" ).datepicker({
-          beforeShowDay: DisableDates,
-          firstDay: 1,
-          dateFormat: "dd/mm/yy",
-          minDate: tomorrow,
-        })
+  $(function () {
+    var dateFormat = "dd/mm/yy";
+    $("#checkinDate")
+      .datepicker({
+        beforeShowDay: DisableDates,
+        firstDay: 1,
+        dateFormat: "dd/mm/yy",
+        minDate: today,
+      })
+      .on("change", function () {
+        to.datepicker("option", "minDate", getDate(this));
+      }),
+      (to = $("#checkoutDate").datepicker({
+        beforeShowDay: DisableDates,
+        firstDay: 1,
+        dateFormat: "dd/mm/yy",
+        minDate: tomorrow,
+      }));
 
-    function getDate( element ) {
+    function getDate(element) {
       var range;
       try {
-        range = $.datepicker.parseDate( dateFormat, element.value );
-      } catch( error ) {
+        range = $.datepicker.parseDate(dateFormat, element.value);
+      } catch (error) {
         range = null;
       }
       return range;
     }
-  } );
-
-
+  });
 }
 
 // pobieranie danych z bazy
-const start = async function() {
+const start = async function (selectedTentID = "AjyDpbG3l7vrUs7PVenZ") {
   const citiesRef = db.collection("bookings");
-  var selectedTentID = "AjyDpbG3l7vrUs7PVenZ";
+  alert(selectedTentID + "here!");
   const snapshot = await citiesRef.where("tentID", "==", selectedTentID).get();
+
   if (snapshot.empty) {
     console.log("No matching documents.", selectedTentID);
   }
@@ -138,4 +143,4 @@ const start = async function() {
   snapshot.forEach((doc) => {
     console.log(doc.id, "=>", doc.data());
   });
-}
+};
