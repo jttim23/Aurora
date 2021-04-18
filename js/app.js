@@ -88,6 +88,9 @@ function datepickerInit(tentID = null) {
      */
     dates = response;
 
+    alert("Otrzymano odpowiedź! Sprawdź w konsoli");
+    console.log(response);
+
     // data dzisiejsza
     var date = new Date();
     var day = date.getDate();
@@ -139,6 +142,7 @@ function datepickerInit(tentID = null) {
 // pobieranie danych z bazy
 const start = async function (selectedTentID = "AjyDpbG3l7vrUs7PVenZ") {
   const citiesRef = db.collection("bookings");
+  let dateRange = {};
   alert(selectedTentID + "here!");
   const snapshot = await citiesRef.where("tentID", "==", selectedTentID).get();
 
@@ -146,9 +150,16 @@ const start = async function (selectedTentID = "AjyDpbG3l7vrUs7PVenZ") {
     console.log("No matching documents.", selectedTentID);
   }
 
-  snapshot.forEach((doc) => {
-    console.log(doc.id, "=>", doc.data());
+  // FIXME: forEach zwraca zawsze undefined, wewnątrz nie przypisuje niczego do zmiennych, zmiana tego na pętlę FOR nie działa
+  dateRange.scope = snapshot.forEach((doc) => {
+    console.log(doc.checkinDate);
+    return {
+      start: 2,
+      end: 4,
+    };
   });
 
-  return ["20/01/2018", "21/01/2018", "22/01/2018", "23/04/2021", "29/04/2021"];
+  console.log(ops);
+
+  return [dateRange, "22/01/2018", "23/04/2021", "29/04/2021"];
 };
