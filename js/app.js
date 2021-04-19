@@ -12,24 +12,61 @@ const showTents = (data) => {
     const tent = doc.data();
     const id = doc.id;
     const output = `
-      <div class="card col-md-6">
-        <div class="card--details">
-          <div>
-            <h1>${tent.name}</h1>   
-            <div>
-              <img src="${tent.photoURL}" alt="" class="img-fluid d-none d-sm-inline">
-            </div>
-            <span>Liczba miejsc: ${tent.people} </span>
-          </div>
-          <a href="#" id="tentsubmitbutton" class="btn btn-lg btn-primary px-5" data-toggle="modal" data-tent-id="${id}" data-target="#bookingModal">
-            REZERWUJ TERAZ
-          </a>
-        </div>
-      </div>
+    
+    <div class="card">
+    <div class="card--details" id="tentCard">
+      <div>
+      <h1>${tent.name}</h1>   
+      
+     <div>
+     <img src=${tent.photoURL} alt="" class="img-fluid d-none d-sm-inline">
+     </div>
+     <br>
+      <a href="#" id="tentdetails" class="btn btn-lg btn-info px-5" data-toggle="modal" data-tent-id="${id}" data-target="#tentdetailsModal">
+     WIĘCEJ O MNIE
+   </a> 
+   
+   <h3>Starting from: ${tent.price}$/per day</h3>   
+  
+       <span>Liczba osób:${tent.people} </span>
+     </div>
+     
+     <a href="#" id="tentsubmitbutton" class="btn btn-lg btn-primary px-5" data-toggle="modal" data-tent-id=${id} data-target="#bookingModal">REZERWUJ TERAZ</a>
+     
+     </div>
+  </div>
+    
     `;
     tentsContainer.innerHTML += output;
   });
 };
+$("#tentdetailsModal").on("show.bs.modal", function (event) {
+  var clickedButton = $(event.relatedTarget);
+  var tentID = clickedButton.data("tent-id");
+  var docRef = db.collection("tents").doc(tentID);
+  var tent;
+  docRef.get().then(function (doc) {
+    if (doc.exists) {
+      console.log("Document data:", doc.data());
+
+      tent = doc.data();
+      console.log(tent.description)
+      $(".modal-body #tentDetails").html(tent.description);
+    } else {
+      // doc.data() will be undefined in this case
+      console.log("No such document!");
+    }
+  }).catch(function (error) {
+    console.log("Error getting document:", error);
+  });
+
+
+});
+// const detailsModal = document.querySelector("#tentdetailsModal");
+// const setTentDetails = (tentID) => {
+
+
+// };
 //przesyła id danego namiotu po kliknieciu przycisku
 $("#bookingModal").on("show.bs.modal", function (event) {
   var clickedButton = $(event.relatedTarget);
@@ -37,6 +74,7 @@ $("#bookingModal").on("show.bs.modal", function (event) {
 
   $(this).find(".modal-body #hiddenTentID").val(tentID);
 });
+
 //po kliknieciu przycisku rezerwuj wywołuje metodę tworząca rezerwację
 const newBookingform = document.querySelector("#newBooking-form");
 newBookingform.addEventListener("submit", (e) => {
@@ -60,7 +98,7 @@ const addNewReservation = () => {
       (newBookingform.checkinDate.value = ""),
         (newBookingform.checkoutDate.value = ""),
         (newBookingform.phoneNumber.value = ""),
-        alert("Your event has been successfully saved");
+        alert("Your booking has been successfully saved");
     })
     .catch((err) => console.log(err));
 };
