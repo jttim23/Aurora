@@ -26,7 +26,7 @@ const showTents = (data) => {
      WIĘCEJ O MNIE
    </a> 
    
-   <h3>Starting from: ${tent.price}$/per day</h3>   
+   <h3>Starting from: ${tent.price} PLN/per day</h3>   
   
        <span>Liczba osób:${tent.people} </span>
      </div>
@@ -247,9 +247,11 @@ const start = async function (selectedTentID = null) {
     console.log("No matching documents.");
   }
 
+
   newArr = [];
   for (i = 0; i < dateRange.length; i++) {
     newArr = arrayUnique(newArr.concat(dateRange[i]));
   }
   return restoreDates(newArr);
 };
+
