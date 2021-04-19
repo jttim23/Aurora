@@ -3,7 +3,6 @@ db.collection("tents")
   .get()
   .then((snapshot) => {
     showTents(snapshot.docs);
-    initDateValidation();
   });
 //metoda wysiwtlajaca liste namiotów
 const tentsContainer = document.querySelector("#tentsContainer");
@@ -48,12 +47,12 @@ $("#tentdetailsModal").on("show.bs.modal", function (event) {
   docRef.get().then(function (doc) {
     if (doc.exists) {
       console.log("Document data:", doc.data());
-
       tent = doc.data();
-      console.log(tent.description)
+      console.log(tent.size)
       $(".modal-body #tentDetails").html(tent.description);
+      $(".modal-body #tentSize").html(tent.size);
     } else {
-      // doc.data() will be undefined in this case
+
       console.log("No such document!");
     }
   }).catch(function (error) {
@@ -62,11 +61,6 @@ $("#tentdetailsModal").on("show.bs.modal", function (event) {
 
 
 });
-// const detailsModal = document.querySelector("#tentdetailsModal");
-// const setTentDetails = (tentID) => {
-
-
-// };
 //przesyła id danego namiotu po kliknieciu przycisku
 $("#bookingModal").on("show.bs.modal", function (event) {
   var clickedButton = $(event.relatedTarget);
@@ -74,7 +68,6 @@ $("#bookingModal").on("show.bs.modal", function (event) {
 
   $(this).find(".modal-body #hiddenTentID").val(tentID);
 });
-
 //po kliknieciu przycisku rezerwuj wywołuje metodę tworząca rezerwację
 const newBookingform = document.querySelector("#newBooking-form");
 newBookingform.addEventListener("submit", (e) => {
@@ -98,164 +91,83 @@ const addNewReservation = () => {
       (newBookingform.checkinDate.value = ""),
         (newBookingform.checkoutDate.value = ""),
         (newBookingform.phoneNumber.value = ""),
-        alert("Your booking has been successfully saved");
+        alert("Your event has been successfully saved");
+
     })
     .catch((err) => console.log(err));
 };
 
-function initDateValidation() {
-  const tentsElements = document.querySelectorAll("[data-tent-id]");
-  tentsElements.forEach((tent) => {
-    tent.addEventListener(
-      "click",
-      function () {
-        datepickerInit(tent.dataset.tentId);
-      },
-      false
-    );
-  });
-}
-
-const getDaysArray = function (s, e) {
-  for (var a = [], d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) {
-    a.push(new Date(d));
-  }
-  return a;
-};
+const checkinDate = document.getElementById('checkinDate');
+const checkoutDate = document.getElementById('checkoutDate');
+checkinDate.addEventListener('click', datepickerInit, false);
+checkoutDate.addEventListener('click', datepickerInit, false);
 
 // inicjalizacja datepickera TODO
-function datepickerInit(tentID = null) {
+function datepickerInit() {
   // pobieranie danych z bazy
-  start(tentID).then((response) => {
-    /**
-     * przypisanie odpowiedzi na to co zwraca funkcja (response)
-     * dopiero wtedy kontynuujemy kod, bo musimy mieć daty (przypisanie response do dates)
-     */
-    dates = response;
+  start();
+    var dates = ["20/01/2018", "21/01/2018", "22/01/2018", "23/04/2021"];
+  // data dzisiejsza
+      var date = new Date();
+      var day = date.getDate();
+      var day1 = date.getDate()+1;
+      var month = date.getMonth()+1;
+      var year = date.getFullYear();
+      if (day<10)
+        day = '0'+day;
+      if(month<10)
+        month = '0'+month;
+    var today = day + '/' + month + '/' + year;
+    var tomorrow = day1 + '/' + month + '/' + year;
 
-    // data dzisiejsza
-    var date = new Date();
-    var day = date.getDate();
-    var day1 = date.getDate() + 1;
-    var month = date.getMonth() + 1;
-    var year = date.getFullYear();
-    if (day < 10) day = "0" + day;
-    if (month < 10) month = "0" + month;
-    var today = day + "/" + month + "/" + year;
-    var tomorrow = day1 + "/" + month + "/" + year;
+  function DisableDates(date) {
+    var string = jQuery.datepicker.formatDate("dd/mm/yy", date);
+    return [dates.indexOf(string) == -1];
+  }
 
-    function DisableDates(date) {
-      var string = jQuery.datepicker.formatDate("dd/mm/yy", date);
-      return [dates.indexOf(string) == -1];
-    }
-
-    $(function () {
-      var dateFormat = "dd/mm/yy";
-      $("#checkinDate")
-        .datepicker({
-          beforeShowDay: DisableDates,
-          firstDay: 1,
-          dateFormat: "dd/mm/yy",
-          minDate: today,
-        })
-        .on("change", function () {
-          to.datepicker("option", "minDate", getDate(this));
-        }),
-        (to = $("#checkoutDate").datepicker({
+  $( function() {
+   var dateFormat = "dd/mm/yy";
+        $( "#checkinDate" )
+            .datepicker({
+              beforeShowDay: DisableDates,
+              firstDay: 1,
+              dateFormat: "dd/mm/yy",
+              minDate: today,
+            })
+            .on( "change", function() {
+              to.datepicker( "option", "minDate", getDate( this ) );
+            }),
+        to = $( "#checkoutDate" ).datepicker({
           beforeShowDay: DisableDates,
           firstDay: 1,
           dateFormat: "dd/mm/yy",
           minDate: tomorrow,
-        }));
+        })
 
-      function getDate(element) {
-        var range;
-        try {
-          range = $.datepicker.parseDate(dateFormat, element.value);
-        } catch (error) {
-          range = null;
-        }
-        return range;
+    function getDate( element ) {
+      var range;
+      try {
+        range = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        range = null;
       }
-    });
-  });
-}
-
-// konwertuje datę na pożądany format (z DD-MM-RRRR na RRRR-MM-DD)
-function convertDate(date) {
-  let newDate = date.split("/");
-  newDate.push(newDate[0]);
-  newDate[0] = newDate[newDate.length - 2];
-  newDate[newDate.length - 2] = newDate[newDate.length - 1];
-  newDate.pop();
-  return newDate.join("-");
-}
-
-function repairDate(date) {
-  let newDate = date.split("-");
-  newDate.push(newDate[0]);
-  newDate[0] = newDate[newDate.length - 2];
-  newDate[newDate.length - 2] = newDate[newDate.length - 1];
-  newDate.pop();
-  return newDate.join("/");
-}
-
-function restoreDates(arr) {
-  for (var i = 0; i < arr.length; ++i) {
-    arr[i] = repairDate(arr[i]);
-  }
-  return arr;
-}
-
-// tworzy unikalną tablicę (każda data występuje raz)
-function arrayUnique(array) {
-  var a = array.concat();
-  for (var i = 0; i < a.length; ++i) {
-    for (var j = i + 1; j < a.length; ++j) {
-      if (a[i] === a[j]) a.splice(j--, 1);
+      return range;
     }
-  }
-  return a;
+  } );
+
+
 }
 
 // pobieranie danych z bazy
-const start = async function (selectedTentID = null) {
-  if (!selectedTentID) {
-    alert("Błąd w przekazaniu parametru!");
-    return;
-  }
-
-  let dateRange = [];
-
-  const addDate = (data) => {
-    data.forEach((doc) => {
-      var checkinDate = doc.data().checkinDate;
-      var checkoutDate = doc.data().checkoutDate;
-      var daylist = getDaysArray(
-        new Date(convertDate(checkinDate)),
-        new Date(convertDate(checkoutDate))
-      );
-      dateRange.push(daylist.map((v) => v.toISOString().slice(0, 10)));
-    });
-  };
-
-  db.collection("bookings")
-    .where("tentID", "==", selectedTentID)
-    .get()
-    .then((snapshot) => {
-      addDate(snapshot.docs);
-    });
-  const snapshot = await db
-    .collection("bookings")
-    .where("tentID", "==", selectedTentID)
-    .get();
+const start = async function() {
+  const citiesRef = db.collection("bookings");
+  var selectedTentID = "AjyDpbG3l7vrUs7PVenZ";
+  const snapshot = await citiesRef.where("tentID", "==", selectedTentID).get();
   if (snapshot.empty) {
-    console.log("No matching documents.");
+    console.log("No matching documents.", selectedTentID);
   }
 
-  newArr = [];
-  for (i = 0; i < dateRange.length; i++) {
-    newArr = arrayUnique(newArr.concat(dateRange[i]));
-  }
-  return restoreDates(newArr);
-};
+  snapshot.forEach((doc) => {
+    console.log(doc.id, "=>", doc.data());
+  });
+}
