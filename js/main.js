@@ -14,20 +14,14 @@ if ("serviceWorker" in navigator) {
   });
 }
 
-/*auth.onAuthStateChanged(user => {
+// pokazanie nazwy zalogowanego usera
+auth.onAuthStateChanged(user => {
     const logout = document.getElementById('logout-btn');
-    const login = document.getElementById('login-btn');
-    if (user){
-        console.log("user logged in: ", user.email);
-        //  login.style.display = 'none';
-        // logout.style.display = 'block';
-    }else{
-        console.log("user logged out");
-        //   logout.style.display = 'none';
-        //  login.style.display = 'block';
-
+    if (user) {
+      console.log("user logged in: ", user.email);
+      logout.innerHTML += " " +user.email;
     }
-}); */
+});
 
 function enableFullscreen(element) {
   if (element.requestFullscreen) {
