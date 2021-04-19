@@ -281,6 +281,12 @@ body {
   border-bottom: 1px solid white;
 }
 
+@media(max-width: 990px){
+  .navbar .nav-item {
+    font-size: 1.2rem;
+  }
+}
+
 #quotes i {
   opacity: 0.3;
 }
