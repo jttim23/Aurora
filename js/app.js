@@ -13,7 +13,7 @@ const showTents = (data) => {
     const id = doc.id;
     const output = `
     
-    <div class="card">
+    <div class="card col-md-6">
     <div class="card--details" id="tentCard">
       <div>
       <h1>${tent.name}</h1>   
@@ -26,7 +26,7 @@ const showTents = (data) => {
      WIĘCEJ O MNIE
    </a> 
    
-   <h3>Starting from: ${tent.price} PLN/per day</h3>   
+   <h5>Ceny od: ${tent.price} PLN/na dzień</h5>   
   
        <span>Liczba osób:${tent.people} </span>
      </div>
