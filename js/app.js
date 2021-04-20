@@ -7,13 +7,14 @@ db.collection("tents")
   });
 //metoda wysiwtlajaca liste namiotów
 const tentsContainer = document.querySelector("#tentsContainer");
-const showTents = (data) => {
+function showTents  (data)  {
   data.forEach((doc) => {
     const tent = doc.data();
     const id = doc.id;
     const output = `
-    
-    <div class="card col-md-6">
+    <div class=" col-md-6 p-3 ">
+    <div class="card">
+
     <div class="card--details" id="tentCard">
       <div>
       <h1>${tent.name}</h1>   
@@ -25,21 +26,18 @@ const showTents = (data) => {
       <a href="#" id="tentdetails" class="btn btn-lg btn-info px-5" data-toggle="modal" data-tent-id="${id}" data-target="#tentdetailsModal">
      WIĘCEJ O MNIE
    </a> 
-   
    <h5>Ceny od: ${tent.price} PLN/na dzień</h5>   
-  
        <span>Liczba osób:${tent.people} </span>
      </div>
-     
      <a href="#" id="tentsubmitbutton" class="btn btn-lg btn-primary px-5" data-toggle="modal" data-tent-id=${id} data-target="#bookingModal">REZERWUJ TERAZ</a>
-     
      </div>
   </div>
-    
+  </div>
     `;
     tentsContainer.innerHTML += output;
   });
 };
+// pobiera id namiotu z przycisku,pobiera dane o namiocie, wstawia do modala
 $("#tentdetailsModal").on("show.bs.modal", function (event) {
   var clickedButton = $(event.relatedTarget);
   var tentID = clickedButton.data("tent-id");
@@ -51,7 +49,7 @@ $("#tentdetailsModal").on("show.bs.modal", function (event) {
       tent = doc.data();
       console.log(tent.size)
       $(".modal-body #tentDetails").html(tent.description);
-      $(".modal-body #tentSize").html(tent.size);
+      $(".modal-body #tentSize").html(`Size: ${tent.size}`);
     } else {
 
       console.log("No such document!");
@@ -62,6 +60,40 @@ $("#tentdetailsModal").on("show.bs.modal", function (event) {
 
 
 });
+
+const newsletterSignup = document.getElementById('newsletterSignup')
+  newsletterSignup.addEventListener('click', (e) => {
+      e.preventDefault();
+     joinNewsletter();
+     
+  });
+
+  //sprawdza czy juz zapisany do newslettera jesli nie to zapisuje
+  function joinNewsletter () {
+    var  userEmail = firebase.auth().currentUser.email;
+    db.collection("newsletterSignups").where("userEmail", "==", userEmail )
+    .get()
+    .then(function(querySnapshot) {
+      if (querySnapshot.empty) {
+        const newsletterSubscription={
+                userEmail : userEmail,
+                signUpDate : new Date()
+               };
+               db.collection("newsletterSignups").add(newsletterSubscription).then(() => {
+                  alert("You are sign up to the newsletter");
+              })
+              .catch((err) => console.log(err));
+      } else{
+        alert("You are already sign up to the newsletter!!!");
+      }
+        
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+
+  }
+
 //przesyła id danego namiotu po kliknieciu przycisku
 $("#bookingModal").on("show.bs.modal", function (event) {
   var clickedButton = $(event.relatedTarget);
@@ -76,7 +108,7 @@ newBookingform.addEventListener("submit", (e) => {
   addNewReservation();
 });
 //tworzy i zapisuje nowa rezerwacje w DB
-const addNewReservation = () => {
+function addNewReservation  ()  {
   const reservation = {
     checkinDate: newBookingform.checkinDate.value,
     checkoutDate: newBookingform.checkoutDate.value,
