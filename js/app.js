@@ -19,7 +19,7 @@ const showTents = (data) => {
       <h1>${tent.name}</h1>   
       
      <div>
-     <img src=${tent.photoURL} alt="" class="img-fluid d-none d-sm-inline">
+     <img src=${tent.photoURL} alt="" class="img-fluid d-sm-inline">
      </div>
      <br>
       <a href="#" id="tentdetails" class="btn btn-lg btn-info px-5" data-toggle="modal" data-tent-id="${id}" data-target="#tentdetailsModal">
