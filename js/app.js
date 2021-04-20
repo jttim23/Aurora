@@ -14,19 +14,19 @@ function showTents  (data)  {
     const output = `
     <div class=" col-md-6 p-3 ">
     <div class="card">
+
     <div class="card--details" id="tentCard">
       <div>
       <h1>${tent.name}</h1>   
       
      <div>
-     <img src=${tent.photoURL} alt="" class="img-fluid d-none d-sm-inline">
+     <img src=${tent.photoURL} alt="" class="img-fluid d-sm-inline">
      </div>
      <br>
       <a href="#" id="tentdetails" class="btn btn-lg btn-info px-5" data-toggle="modal" data-tent-id="${id}" data-target="#tentdetailsModal">
      WIĘCEJ O MNIE
    </a> 
-  
-   <h3>Starting from: ${tent.price} PLN/per day</h3>   
+   <h5>Ceny od: ${tent.price} PLN/na dzień</h5>   
        <span>Liczba osób:${tent.people} </span>
      </div>
      <a href="#" id="tentsubmitbutton" class="btn btn-lg btn-primary px-5" data-toggle="modal" data-tent-id=${id} data-target="#bookingModal">REZERWUJ TERAZ</a>
