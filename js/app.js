@@ -17,8 +17,8 @@ function showTents  (data)  {
 
     <div class="card--details" id="tentCard">
       <div>
-      <h1>${tent.name}</h1>   
-      
+      <h3>${tent.name}</h3>   
+  
      <div>
      <img src=${tent.photoURL} alt="" class="img-fluid d-sm-inline">
      </div>
