@@ -12,7 +12,7 @@ const showTents = (data) => {
     const tent = doc.data();
     const id = doc.id;
     const output = `
-    
+    <div class=" col-md-6 p-3 ">
     <div class="card">
     <div class="card--details" id="tentCard">
       <div>
@@ -35,7 +35,7 @@ const showTents = (data) => {
      
      </div>
   </div>
-    
+  </div>
     `;
     tentsContainer.innerHTML += output;
   });
