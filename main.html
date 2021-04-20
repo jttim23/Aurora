@@ -33,7 +33,8 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="./src/ico/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+    <link href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet"
+        type="text/css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 </head>
@@ -41,7 +42,8 @@
 <body>
     <nav class="navbar navbar-expand-md navbar-dark">
         <a href="#" class="navbar-brand">
-            <img src="./src/ico/favicon-32x32.png" class="d-inline mr-1 align-bottom" alt="" /><h3 class="d-none d-lg-inline align-bottom">Camp with us</h3>
+            <img src="./src/ico/favicon-32x32.png" class="d-inline mr-1 align-bottom" alt="" />
+            <h3 class="d-none d-lg-inline align-bottom">Camp with us</h3>
         </a>
         <button class="navbar-toggler" data-toggle="collapse" data-target="#mainNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -79,7 +81,7 @@
             <h1 class="display-1">Przygoda jakiej nie zaznałeś</h1>
             <p class="lead d-none d-md-block">“Jeśli nie możesz robić rzeczy wielkich, rób małe rzeczy w wielki sposób.”
             </p>
-            <a href="#tents" id="book" class="btn btn-lg btn-primary px-5" >REZERWUJ TERAZ</a>
+            <a href="#tents" id="book" class="btn btn-lg btn-primary px-5">REZERWUJ TERAZ</a>
         </div>
     </section>
     <section id="icons">
@@ -141,8 +143,8 @@
         </div>
     </section>
     <section id="tents">
-        <div class="container text-center">
-            <div id="tentsContainer" class="row">
+        <div class="container text-center mt-2 p-3">
+            <div id="tentsContainer" class="row  m-2">
                 <!-- generated code here -->
             </div>
         </div>
@@ -216,7 +218,7 @@
                         Trzaskające, ciepłe ognisko, gorąca kawa herbata, rozgrzewająca w zimne wieczory? To wszystko
                         jesteśmy Wam w stanie zagwarantować.
                     <p>
-                        <a href="">Sam zobacz<i class="fas fa-arrow-right ml-1"></i></a>
+                        <a href="#icons">Sam zobacz<i class="fas fa-arrow-right ml-1"></i></a>
 
                 </div>
 
@@ -231,13 +233,9 @@
                 <div><iframe src="https://www.google.com/maps/d/embed?mid=1DGhq6NfeTh3lVwSH0PTsW8rZ0q0" width="320"
                         height="234"></iframe></div>
                 <div class="col-10 col-sm-8 col-md-5 col-lg-4">
-                    <form action="" class="form-inline ">
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary">Dołącz</button>
-                            </div>
-                        </div>
-                    </form>
+
+                    <button class="btn btn-primary" id="newsletterSignup">Dołącz</button>
+
                 </div>
             </div>
 
@@ -280,11 +278,9 @@
                                     <div class="form-group">
                                         <span class="form-label">Przyjazd</span>
                                         <input class="form-control" type="text" id="checkinDate" required>
-                                        <!-- <input class="form-control" type="text" name="checkinDate" id="checkinDate" required> -->
+                                     
                                     </div>
-                                    <!--<div class="wrapper">
-                                        <input type="text" name="date" id="date">  
-                                    </div> -->
+                                   
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
@@ -325,10 +321,9 @@
                 </div>
                 <div class="modal-body">
                     <div name="tentDetails" id="tentDetails">
-                       
                     </div>
                     <br>
-                    <div name="tentSize" id="tentSize"> </div>s
+                    <div name="tentSize" id="tentSize"> </div>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -341,7 +336,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.9.1/firebase-firestore.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <script src="js/initializeDB.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+ 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
         crossorigin="anonymous"></script>
