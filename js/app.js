@@ -1,3 +1,6 @@
+// zmienne globalne
+const newsletterSignup = document.getElementById("newsletterSignup");
+
 //pobiera dane z DB
 db.collection("tents")
   .get()
@@ -5,94 +8,95 @@ db.collection("tents")
     showTents(snapshot.docs);
     initDateValidation();
   });
+
 //metoda wysiwtlajaca liste namiotów
 const tentsContainer = document.querySelector("#tentsContainer");
-function showTents  (data)  {
+function showTents(data) {
   data.forEach((doc) => {
     const tent = doc.data();
     const id = doc.id;
     const output = `
-    <div class=" col-md-6 p-3 ">
-    <div class="card">
-
-    <div class="card--details" id="tentCard">
-      <div>
-      <h3>${tent.name}</h3>   
-  
-     <div>
-     <img src=${tent.photoURL} alt="" class="img-fluid d-sm-inline">
-     </div>
-     <br>
-      <a href="#" id="tentdetails" class="btn btn-lg btn-info px-5" data-toggle="modal" data-tent-id="${id}" data-target="#tentdetailsModal">
-     WIĘCEJ O MNIE
-   </a> 
-   <h5>Ceny od: ${tent.price} PLN/na dzień</h5>   
-       <span>Liczba osób:${tent.people} </span>
-     </div>
-     <a href="#" id="tentsubmitbutton" class="btn btn-lg btn-primary px-5" data-toggle="modal" data-tent-id=${id} data-target="#bookingModal">REZERWUJ TERAZ</a>
-     </div>
-  </div>
-  </div>
+        <div class=" col-md-6 p-3 ">
+            <div class="card">
+                <div class="card--details" id="tentCard">
+                    <div>
+                        <h3>${tent.name}</h3>   
+                        <div>
+                            <img src=${tent.photoURL} alt="" class="img-fluid d-sm-inline">
+                        </div>
+                        <br>
+                        <a href="#" id="tentdetails" class="btn btn-lg btn-info px-5" data-toggle="modal" data-tent-id="${id}" data-target="#tentdetailsModal">
+                            WIĘCEJ O MNIE
+                        </a> 
+                        <h5>Ceny od: ${tent.price} PLN/na dzień</h5>   
+                        <span>Liczba osób:${tent.people} </span>
+                    </div>
+                    <a href="#" id="tentsubmitbutton" class="btn btn-lg btn-primary px-5" data-toggle="modal" data-tent-id=${id} data-target="#bookingModal">REZERWUJ TERAZ</a>
+                </div>
+            </div>
+        </div>
     `;
-    tentsContainer.innerHTML += output;
+
+    tentsContainer.innerHTML += output; // dodanie kodu do wnętrza elementu HTML #tentsContainer
   });
-};
+}
+
 // pobiera id namiotu z przycisku,pobiera dane o namiocie, wstawia do modala
 $("#tentdetailsModal").on("show.bs.modal", function (event) {
   var clickedButton = $(event.relatedTarget);
   var tentID = clickedButton.data("tent-id");
   var docRef = db.collection("tents").doc(tentID);
   var tent;
-  docRef.get().then(function (doc) {
-    if (doc.exists) {
-      console.log("Document data:", doc.data());
-      tent = doc.data();
-      console.log(tent.size)
-      $(".modal-body #tentDetails").html(tent.description);
-      $(".modal-body #tentSize").html(`Size: ${tent.size}`);
-    } else {
-
-      console.log("No such document!");
-    }
-  }).catch(function (error) {
-    console.log("Error getting document:", error);
-  });
-
-
+  docRef
+    .get()
+    .then(function (doc) {
+      if (doc.exists) {
+        console.log("Document data:", doc.data());
+        tent = doc.data();
+        console.log(tent.size);
+        $(".modal-body #tentDetails").html(tent.description);
+        $(".modal-body #tentSize").html(`Size: ${tent.size}`);
+      } else {
+        console.log("No such document!");
+      }
+    })
+    .catch(function (error) {
+      console.log("Error getting document:", error);
+    });
 });
 
-const newsletterSignup = document.getElementById('newsletterSignup')
-  newsletterSignup.addEventListener('click', (e) => {
-      e.preventDefault();
-     joinNewsletter();
-     
-  });
+// metoda nasłuchuje - po "click"ięciu na #newsletterSignup uruchamiamy metodę zapisu do newslettera
+newsletterSignup.addEventListener("click", (e) => {
+  e.preventDefault();
+  joinNewsletter();
+});
 
-  //sprawdza czy juz zapisany do newslettera jesli nie to zapisuje
-  function joinNewsletter () {
-    var  userEmail = firebase.auth().currentUser.email;
-    db.collection("newsletterSignups").where("userEmail", "==", userEmail )
+//sprawdza czy juz zapisany do newslettera jesli nie to zapisuje
+function joinNewsletter() {
+  var userEmail = firebase.auth().currentUser.email;
+  db.collection("newsletterSignups")
+    .where("userEmail", "==", userEmail)
     .get()
-    .then(function(querySnapshot) {
+    .then(function (querySnapshot) {
       if (querySnapshot.empty) {
-        const newsletterSubscription={
-                userEmail : userEmail,
-                signUpDate : new Date()
-               };
-               db.collection("newsletterSignups").add(newsletterSubscription).then(() => {
-                  alert("You are sign up to the newsletter");
-              })
-              .catch((err) => console.log(err));
-      } else{
+        const newsletterSubscription = {
+          userEmail: userEmail,
+          signUpDate: new Date(),
+        };
+        db.collection("newsletterSignups")
+          .add(newsletterSubscription)
+          .then(() => {
+            alert("You are sign up to the newsletter");
+          })
+          .catch((err) => console.log(err));
+      } else {
         alert("You are already sign up to the newsletter!!!");
       }
-        
     })
     .catch((error) => {
-        console.log("Error getting documents: ", error);
+      console.log("Error getting documents: ", error);
     });
-
-  }
+}
 
 //przesyła id danego namiotu po kliknieciu przycisku
 $("#bookingModal").on("show.bs.modal", function (event) {
@@ -101,14 +105,16 @@ $("#bookingModal").on("show.bs.modal", function (event) {
 
   $(this).find(".modal-body #hiddenTentID").val(tentID);
 });
+
 //po kliknieciu przycisku rezerwuj wywołuje metodę tworząca rezerwację
 const newBookingform = document.querySelector("#newBooking-form");
 newBookingform.addEventListener("submit", (e) => {
   e.preventDefault();
   addNewReservation();
 });
+
 //tworzy i zapisuje nowa rezerwacje w DB
-function addNewReservation  ()  {
+function addNewReservation() {
   const reservation = {
     checkinDate: newBookingform.checkinDate.value,
     checkoutDate: newBookingform.checkoutDate.value,
@@ -127,7 +133,7 @@ function addNewReservation  ()  {
         alert("Your booking has been successfully saved");
     })
     .catch((err) => console.log(err));
-};
+}
 
 function initDateValidation() {
   const tentsElements = document.querySelectorAll("[data-tent-id]");
@@ -142,11 +148,19 @@ function initDateValidation() {
   });
 }
 
-const getDaysArray = function (s, e) {
-  for (var a = [], d = new Date(s); d <= e; d.setDate(d.getDate() + 1)) {
-    a.push(new Date(d));
+/**
+ * stała funkcja która pobiera liste dni pomiędzy datą startową (start)
+ * a datą końcową (end) - zwraca to w formie tablicy
+ */
+const getDaysArray = function (start, end) {
+  for (
+    var arr = [], dt = new Date(start);
+    dt <= end;
+    dt.setDate(dt.getDate() + 1)
+  ) {
+    arr.push(new Date(dt));
   }
-  return a;
+  return arr;
 };
 
 // inicjalizacja datepickera TODO
@@ -217,6 +231,7 @@ function convertDate(date) {
   return newDate.join("-");
 }
 
+// naprawia datę (z RRRR-MM-DD na DD-MM-RRRR)
 function repairDate(date) {
   let newDate = date.split("-");
   newDate.push(newDate[0]);
@@ -226,6 +241,11 @@ function repairDate(date) {
   return newDate.join("/");
 }
 
+/**
+ * przetwarza dane na pożądany format:
+ * dane zwracane są jako tablica co jest potrzebne dla DATEPICKER
+ * który dezaktywuje te daty
+ */
 function restoreDates(arr) {
   for (var i = 0; i < arr.length; ++i) {
     arr[i] = repairDate(arr[i]);
@@ -265,13 +285,15 @@ const start = async function (selectedTentID = null) {
     });
   };
 
+  // pobiera kolekcję z tabeli "bookings" z bazy danych
   db.collection("bookings")
-    .where("tentID", "==", selectedTentID)
-    .get()
+    .where("tentID", "==", selectedTentID) // z warunkiem gdzie tentID == selectedTentID
+    .get() // pobiera
     .then((snapshot) => {
-      addDate(snapshot.docs);
+      addDate(snapshot.docs); // wtedy wykonuje metodę addDate
     });
-  const snapshot = await db
+
+  const snapshot = await db // await czyli oczekuje na zakonczenie tej akcji
     .collection("bookings")
     .where("tentID", "==", selectedTentID)
     .get();
@@ -279,11 +301,10 @@ const start = async function (selectedTentID = null) {
     console.log("No matching documents.");
   }
 
-
   newArr = [];
   for (i = 0; i < dateRange.length; i++) {
     newArr = arrayUnique(newArr.concat(dateRange[i]));
   }
+
   return restoreDates(newArr);
 };
-
