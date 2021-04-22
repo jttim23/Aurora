@@ -1,17 +1,17 @@
-const signupForm = document.getElementById('signup-form');
-signupForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+const signupForm = document.getElementById('signup-form'); // przypisanie do zmiennej elementu o danym id
+signupForm.addEventListener('submit', (e) => { // dodanie funkcji przy submicie
+    e.preventDefault(); // zapobiegnięcie odświeżeniu strony
 
-    const email = signupForm['singup-email'].value;
+    const email = signupForm['singup-email'].value; // przypisanie wartości do zmiennej
     const password = signupForm['singup-password'].value;
     console.log(email, password);
 
-    auth.createUserWithEmailAndPassword(email, password).then(cred => {
-        const modal = document.getElementById('signupModal');
+    auth.createUserWithEmailAndPassword(email, password).then(cred => { // utworzenie usera, then - kod wykona się po utworzeniu, cred - obiekt tego usera
+        const modal = document.getElementById('signupModal'); // w sumie to nie potrzebe już.xd
         window.location.href="./main.html";
         signupForm.reset();
     }).catch((e) => {
-        displayErrors(e, 'error-signup');
+        displayErrors(e, 'error-signup'); //funkcja do wyświetlania errorów
 
     });
 });
@@ -38,7 +38,7 @@ loginForm.addEventListener('submit', (e) => {
 const signupGoogle = document.getElementById('google-btn')
 signupGoogle.addEventListener('click', (e) => {
     e.preventDefault();
-    var provider = new firebase.auth.GoogleAuthProvider();
+    var provider = new firebase.auth.GoogleAuthProvider(); //nowy obiekt autoryzacji przy pomocy google
 
     auth.signInWithPopup(provider).then(cred => {
         console.log(cred);
@@ -65,12 +65,12 @@ signupFacebook.addEventListener('click', (e) => {
 function displayErrors(error, div){
     const modal = document.getElementById(div);
     const message = document.createElement("div");
-    modal.innerText = " ";
-    message.innerText = error.message;
+    modal.innerText = " "; // czyszczenie poprzedniego komunikatu
+    message.innerText = error.message; // wyświetlenie komunikatu
     message.style.textAlign = "center";
     message.style.marginTop = "5%";
-    modal.appendChild(message);
-    navigator.vibrate([300, 100, 300]);
+    modal.appendChild(message); // dodanie diva "message" do pojemnika "modal"
+    navigator.vibrate([300, 100, 300]); // 2 szybkie wybracje, 100 - brak wibracji
     console.log(error);
 }
 

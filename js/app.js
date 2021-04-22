@@ -179,25 +179,25 @@ function datepickerInit(tentID = null) {
       var dateFormat = "dd/mm/yy";
       $("#checkinDate")
         .datepicker({
-          beforeShowDay: DisableDates,
-          firstDay: 1,
+          beforeShowDay: DisableDates, // wyłączone daty
+          firstDay: 1, // poniedziałek jako pierwszy
           dateFormat: "dd/mm/yy",
-          minDate: today,
+          minDate: today, // minimalna data do wybrania - dziś
         })
         .on("change", function () {
-          to.datepicker("option", "minDate", getDate(this));
+          to.datepicker("option", "minDate", getDate(this)); //ustawienie minimalnej daty wyjazdu na niewcześniejszą niż przyjazdu
         }),
         (to = $("#checkoutDate").datepicker({
           beforeShowDay: DisableDates,
           firstDay: 1,
           dateFormat: "dd/mm/yy",
-          minDate: tomorrow,
+          minDate: tomorrow, // jeśli nie ma wybranej przyjazdu, wtedy najwcześniejsza wyjazdu to jutro
         }));
 
       function getDate(element) {
         var range;
         try {
-          range = $.datepicker.parseDate(dateFormat, element.value);
+          range = $.datepicker.parseDate(dateFormat, element.value); //zmienia datę na dany format
         } catch (error) {
           range = null;
         }

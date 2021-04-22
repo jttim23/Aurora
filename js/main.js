@@ -17,7 +17,7 @@ if ("serviceWorker" in navigator) {
 // pokazanie nazwy zalogowanego usera
 auth.onAuthStateChanged(user => {
     const logout = document.getElementById('logout-btn');
-    if (user) {
+    if (user) { // jeśli jest zalogowany
       console.log("user logged in: ", user.email);
       logout.innerHTML += " " +user.email;
     }
