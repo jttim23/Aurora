@@ -1,5 +1,4 @@
-# Aurora
-
+# Camp with us
 Opis plików:
 * index.html - strona do logowania
 * main.html - storna główna ze wszystkim
