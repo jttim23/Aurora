@@ -12,6 +12,7 @@ db.collection("tents")
 //metoda wysiwtlajaca liste namiotów
 const tentsContainer = document.querySelector("#tentsContainer");
 function showTents(data) {
+  // forEach - czyli dla każdego z elementów w tym obiekcie/tablicy
   data.forEach((doc) => {
     const tent = doc.data();
     const id = doc.id;

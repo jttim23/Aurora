@@ -1,3 +1,4 @@
+// sprawdzam czy serviceWorker jest w obiekcie przeglądarki "navigator"
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", function () {
     navigator.serviceWorker.register("./sw.js").then(
@@ -15,12 +16,13 @@ if ("serviceWorker" in navigator) {
 }
 
 // pokazanie nazwy zalogowanego usera
-auth.onAuthStateChanged(user => {
-    const logout = document.getElementById('logout-btn');
-    if (user) { // jeśli jest zalogowany
-      console.log("user logged in: ", user.email);
-      logout.innerHTML += " " +user.email;
-    }
+auth.onAuthStateChanged((user) => {
+  const logout = document.getElementById("logout-btn");
+  if (user) {
+    // jeśli jest zalogowany
+    console.log("user logged in: ", user.email);
+    logout.innerHTML += " " + user.email;
+  }
 });
 
 function enableFullscreen(element) {
